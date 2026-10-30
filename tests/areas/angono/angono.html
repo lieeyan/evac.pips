@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angono Dashboard | evac.pips</title>
+    <script>
+        (function() {
+            try {
+                var theme = localStorage.getItem("evac-theme");
+                if (theme) document.documentElement.setAttribute("data-theme", theme);
+            } catch(e) {}
+        })();
+    </script>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="../../favicon.png">
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+    <link rel="stylesheet" href="angono.css">
+    <link rel="stylesheet" href="../../assets/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="../../navigation.css">
+    <script src="../../navigation.js"></script>
+</head>
+<body>
+
+    <div class="mesh-bg"></div>
+
+    <nav class="navbar">
+        <div class="logo-container">
+            <div class="logo">evac.pips</div>
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Dark Mode">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+        <ul class="nav-links">
+
+            <li><a href="../../evac.html">Home</a></li>
+            <li><a href="../../hotlines.html">Hotlines</a></li>
+            <li><a href="../../safety.html">Safety Tips</a></li>
+        </ul>
+    </nav>
+
+    <a href="../../evac.html" class="floating-back-btn" title="Back to Main Menu">
+        <i class="fas fa-arrow-left"></i>
+        <div class="back-btn-text">
+            <span class="btn-title">Main Menu</span>
+            <span class="btn-subtitle">Rizal Portal</span>
+        </div>
+    </a>
+
+    <section class="dashboard-section">
+        <div class="dashboard-header">
+            <div>
+                <h1>Angono Evacuation Status</h1>
+                <p style="opacity: 0.8; margin-top: 5px;">Evacuation status for the Municipality of Angono</p>
+            </div>
+            <span class="status-badge warning">Alert Level 2</span>
+        </div>
+        <p class="sample-note"><i class="fas fa-circle-info"></i> Demo data for presentation. Replace with verified official figures from the Angono MDRRMO before publishing.</p>
+
+        <div class="dashboard-grid" style="margin-bottom: 40px;">
+
+            <div class="evac-card" data-facility-id="angono-angono-municipal-gymnasium" data-max-capacity="200">
+                <div class="card-header">
+                    <h3>Angono Municipal Gymnasium</h3>
+                    <span class="badge open">OPEN</span>
+                </div>
+                <div class="address"><i class="fas fa-map-marker-alt"></i> Brgy. San Isidro, Angono</div>
+                <div class="capacity-block">
+                    <div class="capacity-labels">
+                        <span>Occupancy</span>
+                        <span>0 / 200 Members</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                </div>
+                <a class="action-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Angono+Municipal+Gymnasium%2C+San+Isidro%2C+Angono%2C+Rizal%2C+Philippines">View Details &amp; Route</a>
+            </div>
+
+            <div class="evac-card" data-facility-id="angono-vicente-madrigal-national-high-school" data-max-capacity="150">
+                <div class="card-header">
+                    <h3>Vicente Madrigal National High School</h3>
+                    <span class="badge open">OPEN</span>
+                </div>
+                <div class="address"><i class="fas fa-map-marker-alt"></i> Brgy. San Roque, Angono</div>
+                <div class="capacity-block">
+                    <div class="capacity-labels">
+                        <span>Occupancy</span>
+                        <span>0 / 150 Members</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                </div>
+                <a class="action-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Vicente+Madrigal+National+High+School%2C+San+Roque%2C+Angono%2C+Rizal%2C+Philippines">View Details &amp; Route</a>
+            </div>
+
+            <div class="evac-card" data-facility-id="angono-san-vicente-elementary-school" data-max-capacity="100">
+                <div class="card-header">
+                    <h3>San Vicente Elementary School</h3>
+                    <span class="badge open">OPEN</span>
+                </div>
+                <div class="address"><i class="fas fa-map-marker-alt"></i> Brgy. San Vicente, Angono</div>
+                <div class="capacity-block">
+                    <div class="capacity-labels">
+                        <span>Occupancy</span>
+                        <span>0 / 100 Members</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                </div>
+                <a class="action-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Angono+Rizal+evacuation+center">View Details &amp; Route</a>
+            </div>
+
+        </div>
+
+        <div class="table-container">
+            <h2 style="margin-bottom: 20px; color: var(--primary-accent);">Barangay Flood Susceptibility</h2>
+            <table class="evac-table">
+                <thead>
+                    <tr>
+                        <th>Barangay</th>
+                        <th>Susceptibility Level</th>
+                        <th>Est. Affected Families</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="https://www.google.com/maps/search/?api=1&amp;query=Barangay+San+Vicente%2C+Angono%2C+Rizal%2C+Philippines" target="_blank" rel="noopener" class="brgy-link">San Vicente <i class="fas fa-arrow-right"></i></a></td>
+                        <td><span class="badge high">High</span></td>
+                        <td>45</td>
+                        <td>Pre-emptive Evacuation</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.google.com/maps/search/?api=1&amp;query=Barangay+San+Isidro%2C+Angono%2C+Rizal%2C+Philippines" target="_blank" rel="noopener" class="brgy-link">San Isidro <i class="fas fa-arrow-right"></i></a></td>
+                        <td><span class="badge moderate">Moderate</span></td>
+                        <td>12</td>
+                        <td>Monitoring</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.google.com/maps/search/?api=1&amp;query=Barangay+Kalayaan%2C+Angono%2C+Rizal%2C+Philippines" target="_blank" rel="noopener" class="brgy-link">Kalayaan <i class="fas fa-arrow-right"></i></a></td>
+                        <td><span class="badge low">Low</span></td>
+                        <td>0</td>
+                        <td>Normal</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.google.com/maps/search/?api=1&amp;query=Barangay+San+Roque%2C+Angono%2C+Rizal%2C+Philippines" target="_blank" rel="noopener" class="brgy-link">San Roque <i class="fas fa-arrow-right"></i></a></td>
+                        <td><span class="badge high">High</span></td>
+                        <td>80</td>
+                        <td>Forced Evacuation</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <div class="fixed-waves">
+        <svg viewBox="0 0 120 28" preserveAspectRatio="none">
+            <defs>
+                <path id="wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+            </defs>
+            <g class="wave-group">
+                <use xlink:href="#wave" href="#wave" x="48" y="0" fill="rgba(2, 132, 199, 0.3)" />
+                <use xlink:href="#wave" href="#wave" x="48" y="3" fill="rgba(2, 132, 199, 0.5)" />
+                <use xlink:href="#wave" href="#wave" x="48" y="5" fill="rgba(2, 132, 199, 0.7)" />
+                <use xlink:href="#wave" href="#wave" x="48" y="7" fill="var(--wave-solid)" />
+            </g>
+        </svg>
+    </div>
+
+    <div id="fade-overlay" class="fade-overlay"></div>
+
+    <script src="../../auth.js"></script>
+    <script src="../../seed.js"></script>
+    <script src="../../evac.js"></script>
+    <script src="../../app.js"></script>
+</body>
+</html>

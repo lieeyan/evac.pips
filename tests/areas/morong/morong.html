@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morong Dashboard | evac.pips</title>
+    <script>
+        (function() {
+            try {
+                var theme = localStorage.getItem("evac-theme");
+                if (theme) document.documentElement.setAttribute("data-theme", theme);
+            } catch(e) {}
+        })();
+    </script>
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="../../favicon.png">
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+    <link rel="stylesheet" href="morong.css">
+    <link rel="stylesheet" href="../../assets/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="../../navigation.css">
+    <script src="../../navigation.js"></script>
+</head>
+<body>
+    <div class="mesh-bg"></div>
+    <nav class="navbar">
+        <div class="logo-container">
+            <div class="logo">evac.pips</div>
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../../evac.html">Home</a></li>
+            <li><a href="../../hotlines.html">Hotlines</a></li>
+            <li><a href="../../safety.html">Safety Tips</a></li>
+        </ul>
+    </nav>
+
+    <a href="../../evac.html" class="floating-back-btn" title="Back to Main Menu">
+        <i class="fas fa-arrow-left"></i>
+        <div class="back-btn-text"><span class="btn-title">Main Menu</span><span class="btn-subtitle">Rizal Portal</span></div>
+    </a>
+    <section class="dashboard-section">
+        <div class="dashboard-header">
+            <div><h1>Morong Evacuation Status</h1><p style="opacity: 0.8; margin-top: 5px;">Evacuation status for Morong, Rizal</p></div>
+            <span class="status-badge safe">Alert Level 1</span>
+        </div>
+        <p class="sample-note"><i class="fas fa-circle-info"></i> Demo data for presentation. Replace with verified official figures from the Morong MDRRMO before publishing.</p>
+        <div class="dashboard-grid" style="margin-bottom: 40px;">
+            <div class="evac-card" data-facility-id="morong-morong-municipal-gymnasium" data-max-capacity="200">
+                <div class="card-header"><h3>Morong Municipal Gymnasium</h3><span class="badge open">OPEN</span></div>
+                <div class="address"><i class="fas fa-map-marker-alt"></i> Brgy. Lagundi, Morong</div>
+                <div class="capacity-block">
+                    <div class="capacity-labels"><span>Occupancy</span><span>0 / 200 Members</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 0%;"></div></div>
+                </div>
+                <a class="action-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Morong%20Municipal%20Gymnasium%2C%20Lagundi%2C%20Morong%2C%20Rizal%2C%20Philippines">View Details &amp; Route</a>
+            </div>
+            <div class="evac-card" data-facility-id="morong-maybancal-elementary-school" data-max-capacity="120">
+                <div class="card-header"><h3>Maybancal Elementary School</h3><span class="badge open">OPEN</span></div>
+                <div class="address"><i class="fas fa-map-marker-alt"></i> Brgy. Maybancal, Morong</div>
+                <div class="capacity-block">
+                    <div class="capacity-labels"><span>Occupancy</span><span>0 / 120 Members</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 0%;"></div></div>
+                </div>
+                <a class="action-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Maybancal%20Elementary%20School%2C%20Maybancal%2C%20Morong%2C%20Rizal%2C%20Philippines">View Details &amp; Route</a>
+            </div>
+            <div class="evac-card" data-facility-id="morong-san-pedro-barangay-covered-court" data-max-capacity="80">
+                <div class="card-header"><h3>San Pedro Barangay Covered Court</h3><span class="badge open">OPEN</span></div>
+                <div class="address"><i class="fas fa-map-marker-alt"></i> Brgy. San Pedro, Morong</div>
+                <div class="capacity-block">
+                    <div class="capacity-labels"><span>Occupancy</span><span>0 / 80 Members</span></div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 0%;"></div></div>
+                </div>
+                <a class="action-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=San%20Pedro%20Barangay%20Covered%20Court%2C%20San%20Pedro%2C%20Morong%2C%20Rizal%2C%20Philippines">View Details &amp; Route</a>
+            </div>
+        </div>
+        <div class="table-container">
+            <h2 style="margin-bottom: 20px; color: var(--primary-accent);">Barangay Flood Susceptibility</h2>
+            <table class="evac-table">
+                <thead><tr><th>Barangay</th><th>Susceptibility Level</th><th>Est. Affected Families</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td><a href="https://www.google.com/maps/search/?api=1&amp;query=Barangay%20Lagundi%2C%20Morong%2C%20Rizal%2C%20Philippines" target="_blank" rel="noopener" class="brgy-link">Lagundi <i class="fas fa-arrow-right"></i></a></td><td><span class="badge moderate">Moderate</span></td><td>15</td><td>Monitoring</td></tr>
+                    <tr><td><a href="https://www.google.com/maps/search/?api=1&amp;query=Barangay%20Maybancal%2C%20Morong%2C%20Rizal%2C%20Philippines" target="_blank" rel="noopener" class="brgy-link">Maybancal <i class="fas fa-arrow-right"></i></a></td><td><span class="badge high">High</span></td><td>78</td><td>Pre-emptive Evacuation</td></tr>
+                    <tr><td><a href="https://www.google.com/maps/search/?api=1&amp;query=Barangay%20San%20Pedro%2C%20Morong%2C%20Rizal%2C%20Philippines" target="_blank" rel="noopener" class="brgy-link">San Pedro <i class="fas fa-arrow-right"></i></a></td><td><span class="badge moderate">Moderate</span></td><td>21</td><td>Monitoring</td></tr>
+                    <tr><td><a href="https://www.google.com/maps/search/?api=1&amp;query=Barangay%20Sampad%2C%20Morong%2C%20Rizal%2C%20Philippines" target="_blank" rel="noopener" class="brgy-link">Sampad <i class="fas fa-arrow-right"></i></a></td><td><span class="badge high">High</span></td><td>85</td><td>Pre-emptive Evacuation</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <div class="fixed-waves">
+        <svg viewBox="0 0 120 28" preserveAspectRatio="none">
+            <defs><path id="wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" /></defs>
+            <g class="wave-group">
+                <use href="#wave" x="48" y="0" fill="rgba(2, 132, 199, 0.3)" />
+                <use href="#wave" x="48" y="3" fill="rgba(2, 132, 199, 0.5)" />
+                <use href="#wave" x="48" y="5" fill="rgba(2, 132, 199, 0.7)" />
+                <use href="#wave" x="48" y="7" fill="var(--wave-solid)" />
+            </g>
+        </svg>
+    </div>
+    <div id="fade-overlay" class="fade-overlay"></div>
+    <script src="../../auth.js"></script>
+    <script src="../../seed.js"></script>
+    <script src="../../evac.js"></script>
+    <script src="../../app.js"></script>
+</body>
+</html>

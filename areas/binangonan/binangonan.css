@@ -1,0 +1,74 @@
+
+@import url('../../evac.css');
+
+.floating-back-btn {
+    position: fixed;
+    top: 28px;
+    left: 300px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 18px;
+    background-color: var(--glass-bg);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 999px;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    z-index: 101;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.floating-back-btn i {
+    font-size: 1.1rem;
+    color: var(--primary-accent);
+    transition: transform 0.3s ease;
+}
+
+.back-btn-text {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    line-height: 1.2;
+}
+
+.back-btn-text .btn-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.back-btn-text .btn-subtitle {
+    font-size: 0.75rem;
+    opacity: 0.7;
+}
+
+.floating-back-btn:hover {
+    background-color: var(--card-bg);
+    border-color: var(--primary-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px rgba(2, 132, 199, 0.15);
+}
+
+.floating-back-btn:hover i {
+    transform: translateX(-4px);
+}
+
+.evac-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(2, 132, 199, 0.15);
+}
+
+@media (max-width: 1279px) {
+    .floating-back-btn {
+        position: static;
+        display: flex;
+        width: fit-content;
+        margin: 16px 20px 0 max(20px, calc((100% - 1000px) / 2 + 20px));
+    }
+}
+
+@media (max-width: 600px) {
+    .floating-back-btn { margin: 14px 14px 0; }
+}

@@ -1,0 +1,66 @@
+
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const vm = require('node:vm');
+function store() {
+  const map = new Map();
+  return {getItem:k=>map.get(k)??null,setItem:(k,v)=>map.set(k,String(v)),removeItem:k=>map.delete(k)};
+}
+const storage = store();
+let notifications = 0;
+const sandbox = {localStorage:storage,window:{dispatchEvent:()=>notifications++},CustomEvent:class{}};
+vm.createContext(sandbox);
+vm.runInContext(fs.readFileSync(require('node:path').join(__dirname,'../auth.js'),'utf8')+'\nglobalThis.auth = EvacAuth;',sandbox);
+const a=sandbox.auth;
+a.ensureDemoAdmin();
+assert.equal(a.getAllUsers().length,1);
+assert.equal(a.login('ADMIN','admin123').ok,true);
+assert.equal(a.isAdmin(),true);
+assert.equal(a.signup('family.one','family123','Sample Family',4,'San Mateo').ok,true);
+assert.equal(a.signup('family.one','family123','Sample Family',4,'San Mateo').ok,false);
+a.logout();
+assert.equal(a.login('family.one','family123').ok,true);
+assert.equal(a.isAdmin(),false);
+assert.equal(a.evacuate('test-center','Test Center','san-mateo',5).ok,true);
+assert.equal(a.evacuate('second-center','Second Center','san-mateo',5).ok,false);
+assert.equal(a.adminUpdateUser('family.one','hijack','secret123').ok,false);
+a.adminClearFacility('test-center');
+assert.equal(a.getAllRecords().length,1);
+a.login('admin','admin123');
+assert.equal(a.adminUpdateUser('family.one','family.two','short').ok,false);
+assert.equal(a.adminUpdateUser('family.one','admin','family456').ok,false);
+assert.equal(a.adminUpdateUser('family.one','Family.Two','family456').ok,true);
+assert.equal(a.getAllRecords()[0].username,'family.two');
+assert.equal(a.getFacilityTotals('test-center').persons,4);
+assert.equal(a.login('family.one','family123').ok,false);
+assert.equal(a.login('family.two','family456').ok,true);
+a.login('admin','admin123');
+assert.equal(a.adminUpdateUser('family.two','family.three','').ok,true);
+assert.equal(a.login('family.three','family456').ok,true);
+a.login('admin','admin123');
+assert.equal(a.adminUpdateUser('admin','coordinator','strong123').ok,true);
+assert.equal(a.currentUser().username,'coordinator');
+assert.equal(a.isAdmin(),true);
+a.logout(); a.ensureDemoAdmin();
+assert.equal(a.getAllUsers().filter(u=>u.role==='admin').length,1);
+assert.equal(a.getAllUsers().some(u=>u.username==='admin'),false);
+assert.equal(a.signup('admin','admin123','Not an admin',1,'').ok,false);
+assert.equal(a.login('coordinator','strong123').ok,true);
+
+const before = storage.getItem('evac-users');
+const write = storage.setItem;
+let failOnce = true;
+storage.setItem = (key,value)=>{ if(key==='evac-records'&&failOnce){failOnce=false;throw Error('quota')} return write(key,value); };
+assert.equal(a.adminUpdateUser('family.three','failed.rename','').ok,false);
+assert.equal(storage.getItem('evac-users'),before);
+assert.equal(a.getAllRecords()[0].username,'family.three');
+storage.setItem = write;
+
+const users = a.getAllUsers(); users[0].username='admin'; delete users[0].role;
+storage.setItem('evac-users',JSON.stringify(users));
+storage.setItem('evac-session',JSON.stringify({username:'admin'}));
+a.ensureDemoAdmin();
+assert.equal(a.currentUser().role,'admin');
+assert.equal(a.currentUser().password,'strong123');
+assert.ok(notifications>10);
+console.log('PASS: auth, roles, duplicates, password validation, rename propagation, session continuity, storage rollback, and legacy migration.');
