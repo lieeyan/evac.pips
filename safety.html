@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flood Safety Tips | evac.pips</title>
+    <script>
+        (function() {
+            try {
+                var theme = localStorage.getItem("evac-theme");
+                if (theme) document.documentElement.setAttribute("data-theme", theme);
+            } catch(e) {}
+        })();
+    </script>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="favicon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="stylesheet" href="evac.css">
+    <link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="navigation.css">
+    <script src="navigation.js"></script>
+</head>
+<body>
+    <div class="mesh-bg"></div>
+    <nav class="navbar">
+        <div class="logo-container">
+            <div class="logo">evac.pips</div>
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
+        </div>
+        <ul class="nav-links">
+            <li><a href="evac.html">Home</a></li>
+            <li><a href="hotlines.html">Hotlines</a></li>
+            <li><a href="safety.html">Safety Tips</a></li>
+        </ul>
+    </nav>
+
+    <section class="dashboard-section">
+        <div class="dashboard-header"><div><h1>Flood Safety Tips</h1><p style="opacity: 0.8; margin-top: 5px;">Simple steps that protect your family.</p></div></div>
+        <div class="dashboard-grid">
+            <div class="evac-card"><div class="card-header"><h3>Before the flood</h3></div><ul class="tip-list"><li>Pack a go-bag: water, food, flashlight, power bank, medicines, copies of IDs.</li><li>Know your barangay's evacuation center and two routes to it.</li><li>Move appliances and documents to higher ground when a warning is raised.</li></ul></div>
+            <div class="evac-card"><div class="card-header"><h3>During the flood</h3></div><ul class="tip-list"><li>Evacuate early when your LGU orders it; do not wait for water to rise.</li><li>Never walk or drive through floodwater; 15 cm can knock a person down.</li><li>Turn off the main power switch and gas before leaving.</li></ul></div>
+            <div class="evac-card"><div class="card-header"><h3>After the flood</h3></div><ul class="tip-list"><li>Return only when authorities say it is safe.</li><li>Avoid floodwater: it can carry leptospirosis and electrical hazards.</li><li>Boil drinking water and report damaged lines to your barangay.</li></ul></div>
+        </div>
+    </section>
+    <div class="fixed-waves">
+        <svg viewBox="0 0 120 28" preserveAspectRatio="none">
+            <defs><path id="wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" /></defs>
+            <g class="wave-group">
+                <use href="#wave" x="48" y="0" fill="rgba(2, 132, 199, 0.3)" />
+                <use href="#wave" x="48" y="3" fill="rgba(2, 132, 199, 0.5)" />
+                <use href="#wave" x="48" y="5" fill="rgba(2, 132, 199, 0.7)" />
+                <use href="#wave" x="48" y="7" fill="var(--wave-solid)" />
+            </g>
+        </svg>
+    </div>
+    <div id="fade-overlay" class="fade-overlay"></div>
+    <script src="auth.js"></script>
+    <script src="seed.js"></script>
+    <script src="evac.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

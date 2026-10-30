@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | evac.pips</title>
+    <script>
+        (function() {
+            try {
+                var theme = localStorage.getItem("evac-theme");
+                if (theme) document.documentElement.setAttribute("data-theme", theme);
+            } catch(e) {}
+        })();
+    </script>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="favicon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="stylesheet" href="evac.css">
+    <link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
+    <style>
+        .auth-section {
+            margin-top: 100px;
+            padding: 40px 20px 120px;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 10;
+        }
+        .auth-card {
+            background: var(--card-bg);
+            padding: 40px 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            border: 1px solid rgba(128,128,128,0.15);
+        }
+        .auth-card h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+            color: var(--primary-accent);
+        }
+        .auth-card .subtitle {
+            font-size: 0.95rem;
+            opacity: 0.7;
+            margin-bottom: 28px;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 0.92rem;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 13px 16px;
+            border: 2px solid rgba(128,128,128,0.2);
+            border-radius: 12px;
+            font-size: 1rem;
+            background: var(--bg-color);
+            color: var(--text-color);
+            transition: border-color 0.3s;
+            outline: none;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--primary-accent);
+        }
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-toggle {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 13px 16px;
+            border: 2px solid rgba(128,128,128,0.2);
+            border-radius: 12px;
+            font: inherit;
+            font-size: 1rem;
+            text-align: left;
+            background: var(--bg-color);
+            color: var(--text-color);
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .dropdown-toggle:focus-visible, .dropdown.open .dropdown-toggle {
+            border-color: var(--primary-accent);
+        }
+        .dropdown-value {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .dropdown-value.placeholder {
+            opacity: 0.55;
+        }
+        .dropdown-toggle i {
+            flex-shrink: 0;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            transition: transform 0.2s ease;
+        }
+        .dropdown.open .dropdown-toggle i {
+            transform: rotate(180deg);
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: calc(100% + 6px);
+            z-index: 50;
+            max-height: min(232px, 45vh);
+            margin: 0;
+            padding: 6px;
+            list-style: none;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            scrollbar-width: thin;
+            background: var(--bg-color);
+            border: 1px solid rgba(128,128,128,0.25);
+            border-radius: 14px;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+        }
+        .dropdown.open .dropdown-menu {
+            display: block;
+            animation: dropdown-in 0.15s ease;
+        }
+        .dropdown.up .dropdown-menu {
+            top: auto;
+            bottom: calc(100% + 6px);
+        }
+        .dropdown-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 9px 12px;
+            border-radius: 9px;
+            font-size: 0.92rem;
+            cursor: pointer;
+        }
+        .dropdown-option.active {
+            background: var(--seg-hover);
+        }
+        .dropdown-option.selected {
+            color: var(--primary-accent);
+            font-weight: 600;
+        }
+        .dropdown-option.empty {
+            opacity: 0.6;
+        }
+        .dropdown-option i {
+            font-size: 0.75rem;
+        }
+        @keyframes dropdown-in {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        [data-theme="dark"] .form-group input[type="number"] {
+            color-scheme: dark;
+        }
+        .form-group input[type="number"]::-webkit-inner-spin-button,
+        .form-group input[type="number"]::-webkit-outer-spin-button {
+            opacity: 1;
+        }
+        .form-group .hint {
+            font-size: 0.8rem;
+            opacity: 0.6;
+            margin-top: 4px;
+        }
+        .auth-btn {
+            width: 100%;
+            padding: 14px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            background-color: var(--primary-accent);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 8px;
+        }
+        .auth-btn:hover {
+            background-color: #0369a1;
+            transform: translateY(-1px);
+        }
+        .auth-toggle {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.95rem;
+        }
+        .auth-toggle a {
+            color: var(--primary-accent);
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .auth-toggle a:hover { text-decoration: underline; }
+        .auth-error {
+            background: rgba(239,68,68,0.1);
+            color: #ef4444;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            margin-bottom: 14px;
+            display: none;
+        }
+        .auth-success {
+            background: rgba(16,185,129,0.1);
+            color: #10b981;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            margin-bottom: 14px;
+            display: none;
+        }
+        .tab-bar {
+            display: flex;
+            gap: 0;
+            margin-bottom: 25px;
+            background: rgba(128,128,128,0.08);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .tab-bar button {
+            flex: 1;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            border: none;
+            background: transparent;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.3s;
+            opacity: 0.6;
+        }
+        .tab-bar button.active {
+            background: var(--primary-accent);
+            color: white;
+            opacity: 1;
+            border-radius: 12px;
+        }
+        .gen-pass-btn {
+            margin-top: 8px;
+            padding: 8px 14px;
+            font: inherit;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-accent);
+            background: transparent;
+            border: 2px solid var(--primary-accent);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .gen-pass-btn:hover { background: var(--seg-hover); }
+        .form-panel { display: none; }
+        .form-panel.active { display: block; }
+    </style>
+    <link rel="stylesheet" href="navigation.css">
+    <script src="navigation.js"></script>
+</head>
+<body>
+    <div class="mesh-bg"></div>
+
+    <nav class="navbar">
+        <div class="logo-container">
+            <div class="logo">evac.pips</div>
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Dark Mode">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+        <ul class="nav-links">
+            <li><a href="evac.html">Home</a></li>
+            <li><a href="hotlines.html">Hotlines</a></li>
+            <li><a href="safety.html">Safety Tips</a></li>
+        </ul>
+    </nav>
+
+    <section class="auth-section">
+        <div class="auth-card">
+            <div class="tab-bar">
+                <button class="active" id="tab-login">Login</button>
+                <button id="tab-signup">Sign Up</button>
+            </div>
+
+            <div class="form-panel active" id="panel-login">
+                <h2><i class="fas fa-right-to-bracket"></i> Welcome Back</h2>
+                <p class="subtitle">Log in to evacuate your family.</p>
+                <div class="auth-error" id="login-error"></div>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-user">Username</label>
+                        <input type="text" id="login-user" placeholder="Enter your username" required autocomplete="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-pass">Password</label>
+                        <input type="password" id="login-pass" placeholder="Enter your password" required autocomplete="current-password">
+                    </div>
+                    <button type="submit" class="auth-btn"><i class="fas fa-arrow-right-to-bracket"></i> Login</button>
+                </form>
+                <div class="auth-toggle">
+                    Don't have an account? <a id="go-signup">Sign Up</a>
+                </div>
+            </div>
+
+            <div class="form-panel" id="panel-signup">
+                <h2><i class="fas fa-user-plus"></i> Create Account</h2>
+                <p class="subtitle">Register your family for evacuation tracking.</p>
+                <div class="auth-error" id="signup-error"></div>
+                <div class="auth-success" id="signup-success"></div>
+                <form id="signup-form">
+                    <div class="form-group">
+                        <label for="signup-name">Full Name (Head of Family)</label>
+                        <input type="text" id="signup-name" placeholder="e.g. Juan Dela Cruz" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-user">Username</label>
+                        <input type="text" id="signup-user" placeholder="Choose a username" required autocomplete="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-pass">Password</label>
+                        <input type="password" id="signup-pass" placeholder="Choose a password" required autocomplete="new-password">
+                        <button type="button" class="gen-pass-btn" id="gen-pass"><i class="fas fa-dice"></i> Generate random password</button>
+                        <div class="hint" id="gen-pass-hint" hidden>Random password generated and shown above. Save it before creating your account.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-members"><i class="fas fa-people-group"></i> Number of Family Members</label>
+                        <input type="number" id="signup-members" min="1" max="50" placeholder="How many people in your household?" required>
+                        <div class="hint">Include yourself and all dependents (spouse, children, elderly, etc.)</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-municipality">Municipality / City</label>
+                        <select id="signup-municipality">
+                            <option value="">— Select (optional) —</option>
+                            <option>Angono</option>
+                            <option>Antipolo</option>
+                            <option>Baras</option>
+                            <option>Binangonan</option>
+                            <option>Cainta</option>
+                            <option>Cardona</option>
+                            <option>Jalajala</option>
+                            <option>Morong</option>
+                            <option>Pililla</option>
+                            <option>Rodriguez (Montalban)</option>
+                            <option>San Mateo</option>
+                            <option>Tanay</option>
+                            <option>Taytay</option>
+                            <option>Teresa</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="auth-btn" style="background-color:#10b981;"><i class="fas fa-user-plus"></i> Create Account</button>
+                </form>
+                <div class="auth-toggle">
+                    Already have an account? <a id="go-login">Log In</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="fixed-waves">
+        <svg viewBox="0 0 120 28" preserveAspectRatio="none">
+            <defs><path id="wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" /></defs>
+            <g class="wave-group">
+                <use href="#wave" x="48" y="0" fill="rgba(2, 132, 199, 0.3)" />
+                <use href="#wave" x="48" y="3" fill="rgba(2, 132, 199, 0.5)" />
+                <use href="#wave" x="48" y="5" fill="rgba(2, 132, 199, 0.7)" />
+                <use href="#wave" x="48" y="7" fill="var(--wave-solid)" />
+            </g>
+        </svg>
+    </div>
+
+    <div id="fade-overlay" class="fade-overlay"></div>
+
+    <script src="auth.js"></script>
+    <script src="seed.js"></script>
+    <script src="evac.js"></script>
+    <script src="app.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+        if (typeof EvacAuth !== "undefined" && EvacAuth.isLoggedIn()) {
+            EvacNavigation.go("evac.html");
+            return;
+        }
+
+        EvacAuth.ensureDemoAdmin();
+
+        const tabLogin = document.getElementById("tab-login");
+        const tabSignup = document.getElementById("tab-signup");
+        const panelLogin = document.getElementById("panel-login");
+        const panelSignup = document.getElementById("panel-signup");
+
+        function showLogin() {
+            EvacUI.hidePasswords();
+            tabLogin.classList.add("active"); tabSignup.classList.remove("active");
+            panelLogin.classList.add("active"); panelSignup.classList.remove("active");
+        }
+        function showSignup() {
+            EvacUI.hidePasswords();
+            tabSignup.classList.add("active"); tabLogin.classList.remove("active");
+            panelSignup.classList.add("active"); panelLogin.classList.remove("active");
+        }
+
+        tabLogin.addEventListener("click", showLogin);
+        tabSignup.addEventListener("click", showSignup);
+        document.getElementById("go-signup").addEventListener("click", showSignup);
+        document.getElementById("go-login").addEventListener("click", showLogin);
+
+        document.getElementById("login-form").addEventListener("submit", (e) => {
+            e.preventDefault();
+            const errEl = document.getElementById("login-error");
+            errEl.style.display = "none";
+
+            const username = document.getElementById("login-user").value;
+            const password = document.getElementById("login-pass").value;
+            const result = EvacAuth.login(username, password);
+            if (result.ok) {
+                EvacNavigation.go("evac.html");
+            } else {
+                errEl.textContent = result.error;
+                errEl.style.display = "block";
+            }
+        });
+
+        document.getElementById("gen-pass").addEventListener("click", () => {
+            const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%";
+            const bytes = new Uint32Array(12);
+            crypto.getRandomValues(bytes);
+            const password = Array.from(bytes, n => chars[n % chars.length]).join("");
+            const input = document.getElementById("signup-pass");
+            input.value = password;
+            const eye = input.closest(".password-field")?.querySelector(".password-toggle");
+            if (eye && eye.getAttribute("aria-pressed") !== "true") eye.click();
+            document.getElementById("gen-pass-hint").hidden = false;
+            if (navigator.clipboard) navigator.clipboard.writeText(password).catch(() => {});
+        });
+        document.getElementById("signup-form").addEventListener("reset", () => {
+            document.getElementById("gen-pass-hint").hidden = true;
+        });
+
+        document.getElementById("signup-form").addEventListener("submit", (e) => {
+            e.preventDefault();
+            const errEl = document.getElementById("signup-error");
+            const succEl = document.getElementById("signup-success");
+            errEl.style.display = "none";
+            succEl.style.display = "none";
+
+            const fullName = document.getElementById("signup-name").value;
+            const username = document.getElementById("signup-user").value;
+            const password = document.getElementById("signup-pass").value;
+            const members = document.getElementById("signup-members").value;
+            const municipality = document.getElementById("signup-municipality").value;
+
+            const result = EvacAuth.signup(username, password, fullName, members, municipality);
+            if (result.ok) {
+                succEl.textContent = "Account created! You can now log in.";
+                succEl.style.display = "block";
+                document.getElementById("signup-form").reset();
+                setTimeout(showLogin, 1500);
+            } else {
+                errEl.textContent = result.error;
+                errEl.style.display = "block";
+            }
+        });
+    });
+    </script>
+    <script>
+    (function () {
+        const select = document.getElementById("signup-municipality");
+        if (!select) return;
+        const label = document.querySelector('label[for="signup-municipality"]');
+        const wrap = document.createElement("div");
+        wrap.className = "dropdown";
+        const toggle = document.createElement("button");
+        toggle.type = "button";
+        toggle.className = "dropdown-toggle";
+        toggle.id = "signup-municipality-button";
+        toggle.setAttribute("aria-haspopup", "listbox");
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.innerHTML = '<span class="dropdown-value"></span><i class="fas fa-chevron-down"></i>';
+        const menu = document.createElement("ul");
+        menu.className = "dropdown-menu";
+        menu.id = "signup-municipality-list";
+        menu.setAttribute("role", "listbox");
+        toggle.setAttribute("aria-controls", menu.id);
+        if (label) {
+            label.id = label.id || "signup-municipality-label";
+            toggle.setAttribute("aria-labelledby", label.id);
+            menu.setAttribute("aria-labelledby", label.id);
+        }
+        const valueEl = toggle.querySelector(".dropdown-value");
+        const items = Array.from(select.options).map((opt, i) => {
+            const li = document.createElement("li");
+            li.id = "signup-municipality-opt-" + i;
+            li.className = "dropdown-option" + (opt.value === "" ? " empty" : "");
+            li.setAttribute("role", "option");
+            li.textContent = opt.textContent;
+            menu.appendChild(li);
+            return li;
+        });
+        select.style.display = "none";
+        select.tabIndex = -1;
+        select.setAttribute("aria-hidden", "true");
+        select.parentNode.insertBefore(wrap, select);
+        wrap.append(toggle, menu, select);
+
+        let active = select.selectedIndex;
+        let buffer = "";
+        let bufferTimer = null;
+
+        function render() {
+            const current = select.selectedIndex;
+            const opt = select.options[current];
+            valueEl.textContent = opt.value === "" ? "Select (optional)" : opt.textContent;
+            valueEl.classList.toggle("placeholder", opt.value === "");
+            items.forEach((li, i) => {
+                const on = i === current;
+                li.classList.toggle("selected", on);
+                li.setAttribute("aria-selected", on ? "true" : "false");
+                const check = li.querySelector("i");
+                if (on && !check) li.insertAdjacentHTML("beforeend", '<i class="fas fa-check"></i>');
+                if (!on && check) check.remove();
+            });
+        }
+
+        function setActive(i) {
+            active = Math.max(0, Math.min(items.length - 1, i));
+            items.forEach((li, n) => li.classList.toggle("active", n === active));
+            toggle.setAttribute("aria-activedescendant", items[active].id);
+            items[active].scrollIntoView({ block: "nearest" });
+        }
+
+        function isOpen() {
+            return wrap.classList.contains("open");
+        }
+
+        function open() {
+            if (isOpen()) return;
+            wrap.classList.remove("up");
+            wrap.classList.add("open");
+            toggle.setAttribute("aria-expanded", "true");
+            const reserve = window.innerWidth <= 960 ? 96 : 12;
+            const rect = toggle.getBoundingClientRect();
+            const menuHeight = menu.offsetHeight;
+            const below = window.innerHeight - rect.bottom - reserve;
+            const above = rect.top - 12;
+            if (below < menuHeight && above > below) wrap.classList.add("up");
+            else if (below < menuHeight) window.scrollBy({ top: menuHeight - below + 6, behavior: "smooth" });
+            setActive(select.selectedIndex);
+        }
+
+        function close() {
+            wrap.classList.remove("open");
+            toggle.setAttribute("aria-expanded", "false");
+            toggle.removeAttribute("aria-activedescendant");
+        }
+
+        function choose(i) {
+            select.selectedIndex = i;
+            select.dispatchEvent(new Event("change", { bubbles: true }));
+            render();
+            close();
+        }
+
+        toggle.addEventListener("click", () => (isOpen() ? close() : open()));
+
+        toggle.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+                e.preventDefault();
+                if (!isOpen()) open();
+                else setActive(active + (e.key === "ArrowDown" ? 1 : -1));
+            } else if (e.key === "Home" && isOpen()) {
+                e.preventDefault();
+                setActive(0);
+            } else if (e.key === "End" && isOpen()) {
+                e.preventDefault();
+                setActive(items.length - 1);
+            } else if ((e.key === "Enter" || e.key === " ") && isOpen()) {
+                e.preventDefault();
+                choose(active);
+            } else if (e.key === "Escape" && isOpen()) {
+                e.preventDefault();
+                close();
+            } else if (e.key === "Tab") {
+                close();
+            } else if (e.key.length === 1 && /\S/.test(e.key)) {
+                buffer += e.key.toLowerCase();
+                clearTimeout(bufferTimer);
+                bufferTimer = setTimeout(() => { buffer = ""; }, 600);
+                const hit = items.findIndex((li, i) => i > 0 && li.textContent.toLowerCase().startsWith(buffer));
+                if (hit > -1) {
+                    if (!isOpen()) open();
+                    setActive(hit);
+                }
+            }
+        });
+
+        items.forEach((li, i) => {
+            li.addEventListener("mousedown", (e) => e.preventDefault());
+            li.addEventListener("mouseenter", () => setActive(i));
+            li.addEventListener("click", () => choose(i));
+        });
+
+        document.addEventListener("pointerdown", (e) => {
+            if (isOpen() && !wrap.contains(e.target)) close();
+        });
+
+        wrap.addEventListener("focusout", (e) => {
+            if (!wrap.contains(e.relatedTarget)) close();
+        });
+
+        if (label) {
+            label.addEventListener("click", (e) => {
+                e.preventDefault();
+                toggle.focus();
+            });
+        }
+
+        if (select.form) {
+            select.form.addEventListener("reset", () => setTimeout(() => { render(); close(); }, 0));
+        }
+
+        render();
+    })();
+    </script>
+</body>
+</html>

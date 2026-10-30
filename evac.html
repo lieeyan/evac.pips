@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>evac.pips | Rizal Flood Portal</title>
+    <script>
+        (function() {
+            try {
+                var theme = localStorage.getItem("evac-theme");
+                if (theme) document.documentElement.setAttribute("data-theme", theme);
+            } catch(e) {}
+        })();
+    </script>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="favicon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="stylesheet" href="evac.css">
+
+    <link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="navigation.css">
+    <script src="navigation.js"></script>
+</head>
+<body>
+
+    <div class="mesh-bg"></div>
+
+    <nav class="navbar">
+        <div class="logo-container">
+            <div class="logo">evac.pips</div>
+
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Dark Mode">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+        <ul class="nav-links">
+            <li><a href="evac.html">Home</a></li>
+            <li><a href="hotlines.html">Hotlines</a></li>
+            <li><a href="safety.html">Safety Tips</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero-section">
+        <div class="hero-content">
+            <h1>Rizal Flood & Evacuation Tracker</h1>
+            <p class="subtitle">A family-focused flood status and evacuation center tracker for Rizal Province.</p>
+
+            <form class="search-box" id="search-form">
+
+                <input type="hidden" name="city" id="city-input" required>
+
+                <div class="custom-select-wrapper">
+                    <div class="custom-select-trigger">
+                        <span>Select your municipality / city...</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="custom-options">
+                        <div class="custom-option" data-value="Angono">Angono</div>
+                        <div class="custom-option" data-value="Antipolo">Antipolo</div>
+                        <div class="custom-option" data-value="Baras">Baras</div>
+                        <div class="custom-option" data-value="Binangonan">Binangonan</div>
+                        <div class="custom-option" data-value="Cainta">Cainta</div>
+                        <div class="custom-option" data-value="Cardona">Cardona</div>
+                        <div class="custom-option" data-value="Jalajala">Jalajala</div>
+                        <div class="custom-option" data-value="Morong">Morong</div>
+                        <div class="custom-option" data-value="Pililla">Pililla</div>
+                        <div class="custom-option" data-value="Rodriguez">Rodriguez (Montalban)</div>
+                        <div class="custom-option" data-value="San Mateo">San Mateo</div>
+                        <div class="custom-option" data-value="Tanay">Tanay</div>
+                        <div class="custom-option" data-value="Taytay">Taytay</div>
+                        <div class="custom-option" data-value="Teresa">Teresa</div>
+                    </div>
+                </div>
+
+                <button type="submit" class="search-btn">Check Status</button>
+            </form>
+            <p class="trust-signal">Demo status is stored in this browser. Replace sample figures with verified LGU data before deployment.</p>
+        </div>
+    </header>
+
+    <section class="about-section">
+        <div class="about-card">
+            <h2>Objective: About evac.pips</h2>
+            <p class="about-lead">evac.pips helps Rizal residents see which evacuation centers are open, how full they are, and which barangays are most at risk of flooding, so families can decide where to go before the water rises.</p>
+            <div class="about-points">
+                <div class="about-point">
+                    <div class="about-icon"><i class="fas fa-location-dot"></i></div>
+                    <h3>Evacuation Centers</h3>
+                    <p>See which centers are open and how many members each one is holding.</p>
+                </div>
+                <div class="about-point">
+                    <div class="about-icon"><i class="fas fa-water"></i></div>
+                    <h3>Flood Susceptibility</h3>
+                    <p>Check which barangays in your municipality face the highest flood risk.</p>
+                </div>
+                <div class="about-point">
+                    <div class="about-icon"><i class="fas fa-phone-volume"></i></div>
+                    <h3>Hotlines &amp; Safety Tips</h3>
+                    <p>Keep emergency numbers and safety guidance one tap away.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="fixed-waves">
+        <svg viewBox="0 0 120 28" preserveAspectRatio="none">
+            <defs>
+                <path id="wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+            </defs>
+            <g class="wave-group">
+                <use xlink:href="#wave" href="#wave" x="48" y="0" fill="rgba(2, 132, 199, 0.3)" />
+                <use xlink:href="#wave" href="#wave" x="48" y="3" fill="rgba(2, 132, 199, 0.5)" />
+                <use xlink:href="#wave" href="#wave" x="48" y="5" fill="rgba(2, 132, 199, 0.7)" />
+                <use xlink:href="#wave" href="#wave" x="48" y="7" fill="var(--wave-solid)" />
+            </g>
+        </svg>
+    </div>
+
+    <div id="fade-overlay" class="fade-overlay"></div>
+
+    <script src="auth.js"></script>
+    <script src="seed.js"></script>
+    <script src="evac.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

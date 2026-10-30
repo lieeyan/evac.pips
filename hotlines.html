@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Hotlines | evac.pips</title>
+    <script>
+        (function() {
+            try {
+                var theme = localStorage.getItem("evac-theme");
+                if (theme) document.documentElement.setAttribute("data-theme", theme);
+            } catch(e) {}
+        })();
+    </script>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="favicon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="stylesheet" href="evac.css">
+    <link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="navigation.css">
+    <script src="navigation.js"></script>
+</head>
+<body>
+    <div class="mesh-bg"></div>
+    <nav class="navbar">
+        <div class="logo-container">
+            <div class="logo">evac.pips</div>
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
+        </div>
+        <ul class="nav-links">
+            <li><a href="evac.html">Home</a></li>
+            <li><a href="hotlines.html">Hotlines</a></li>
+            <li><a href="safety.html">Safety Tips</a></li>
+        </ul>
+    </nav>
+
+    <section class="dashboard-section">
+        <div class="dashboard-header"><div><h1>Emergency Hotlines</h1><p style="opacity: 0.8; margin-top: 5px;">Save these numbers. Verify them with your LGU before publishing.</p></div></div>
+        <div class="dashboard-grid" id="national-grid">
+            <div class="evac-card"><div class="card-header"><h3>National Emergency Hotline</h3></div><div class="hotline-num">911</div><p style="opacity:.8">Police, fire, medical and disaster response.</p></div>
+            <div class="evac-card"><div class="card-header"><h3>Philippine Red Cross</h3></div><div class="hotline-num">143</div><p style="opacity:.8">Rescue, first aid and relief.</p></div>
+            <div class="evac-card"><div class="card-header"><h3>NDRRMC Operations Center</h3></div><div class="hotline-num">(02) 8911-1406 / 8912-2665</div><p style="opacity:.8">National disaster monitoring and reporting.</p></div>
+        </div>
+        <div class="dashboard-header hotline-gap"><div><h2>Cities &amp; Municipalities</h2><p style="opacity: 0.8; margin-top: 5px;">Municipal DRRMO hotlines across Rizal Province.</p></div></div>
+        <div class="dashboard-grid" id="municipal-grid">
+            <div class="evac-card" data-municipality="Angono"><div class="card-header"><h3>Angono MDRRMO &mdash; Municipal Disaster Risk Reduction and Management Office</h3></div><div class="hotline-list"><span>0917-810-9640</span><span>0916-242-0833</span></div></div>
+            <div class="evac-card" data-municipality="Antipolo"><div class="card-header"><h3>Antipolo CDRRMO &mdash; City Disaster Risk Reduction and Management Office</h3></div><div class="hotline-list"><span>0927-755-9911</span><span>(02) 8689-4564</span><span>(02) 8689-4576</span></div></div>
+            <div class="evac-card" data-municipality="Baras"><div class="card-header"><h3>Baras MDRRMO &mdash; Municipal Disaster Risk Reduction and Management Office</h3></div><div class="hotline-list"><span>0920-958-1070</span><span>0945-113-7077</span></div></div>
+            <div class="evac-card" data-municipality="Binangonan"><div class="card-header"><h3>Binangonan MDRRMO &mdash; Municipal Disaster Risk Reduction and Management Office</h3></div><div class="hotline-list"><span>0965-623-8674</span><span>(02) 8535-0131</span></div></div>
+            <div class="evac-card" data-municipality="Cainta"><div class="card-header"><h3>Rescue 131 &mdash; Cainta emergency response hotline / MDRRMO</h3></div><div class="hotline-list"><span>(02) 8696-2601</span></div></div>
+            <div class="evac-card" data-municipality="Cardona"><div class="card-header"><h3>Cardona MDRRMO &mdash; Municipal Disaster Risk Reduction and Management Office</h3></div><div class="hotline-list"><span>0917-130-7943</span><span>(02) 8633-1052</span></div></div>
+            <div class="evac-card" data-municipality="Jalajala"><div class="card-header"><h3>Jalajala MDRRMO &mdash; Municipal Disaster Risk Reduction and Management Office</h3></div><div class="hotline-list"><span>0975-855-6328</span><span>0921-465-9118</span></div></div>
+            <div class="evac-card" data-municipality="Rodriguez (Montalban)"><div class="card-header"><h3>Rodriguez MDRRMO &mdash; Municipal Disaster Risk Reduction and Management Office</h3></div><div class="hotline-list"><span>0969-614-4825</span></div></div>
+            <div class="evac-card" data-municipality="Morong"><div class="card-header"><h3>Morong MDRRMO &mdash; Municipal Disaster Risk Reduction and Management Office</h3></div><div class="hotline-list"><span>0919-081-7181</span><span>0926-691-4281</span><span>(02) 7212-5741</span></div></div>
+            <div class="evac-card" data-municipality="Pililla"><div class="card-header"><h3>Pililla MDRRMO &mdash; Municipal Disaster Risk Reduction and Management Office</h3></div><div class="hotline-list"><span>0917-939-8558</span><span>0906-258-6778</span><span>0951-171-1161</span></div></div>
+            <div class="evac-card" data-municipality="San Mateo"><div class="card-header"><h3>San Mateo MDRRMO &mdash; Municipal Disaster Risk Reduction and Management Office</h3></div><div class="hotline-list"><span>0917-650-2110</span><span>(02) 8297-8100 (Loc. 129 or 130)</span></div></div>
+            <div class="evac-card" data-municipality="Tanay"><div class="card-header"><h3>Tanay MDRRMO &mdash; Municipal Disaster Risk Reduction and Management Office</h3></div><div class="hotline-list"><span>0963-473-3333</span><span>0908-860-6252</span><span>(02) 8251-2284</span><span>(02) 8655-3119 (Loc. 307)</span></div></div>
+            <div class="evac-card" data-municipality="Taytay"><div class="card-header"><h3>SAGIP TAYTAY Command &amp; Emergency Operations Center</h3></div><div class="hotline-list"><span>0998-884-1849</span><span>0998-884-6308</span><span>(02) 8286-6159</span><span>(02) 8286-6146</span></div></div>
+            <div class="evac-card" data-municipality="Teresa"><div class="card-header"><h3>Teresa MDRRMO; TOPSS is also listed for rescue and safety services</h3></div><div class="hotline-list"><span>0945-113-7077</span><span>0955-003-6278</span><span>(02) 8286-6146</span></div></div>
+        </div>
+    </section>
+    <div class="fixed-waves">
+        <svg viewBox="0 0 120 28" preserveAspectRatio="none">
+            <defs><path id="wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" /></defs>
+            <g class="wave-group">
+                <use href="#wave" x="48" y="0" fill="rgba(2, 132, 199, 0.3)" />
+                <use href="#wave" x="48" y="3" fill="rgba(2, 132, 199, 0.5)" />
+                <use href="#wave" x="48" y="5" fill="rgba(2, 132, 199, 0.7)" />
+                <use href="#wave" x="48" y="7" fill="var(--wave-solid)" />
+            </g>
+        </svg>
+    </div>
+    <div id="fade-overlay" class="fade-overlay"></div>
+    <script src="auth.js"></script>
+    <script src="seed.js"></script>
+    <script src="evac.js"></script>
+    <script src="app.js"></script>
+    <script>
+        (function () {
+            if (typeof EvacAuth === "undefined") return;
+            var user = EvacAuth.currentUser();
+            if (!user || !user.municipality) return;
+            var match = null;
+            document.querySelectorAll("#municipal-grid .evac-card").forEach(function (card) {
+                if (card.getAttribute("data-municipality") === user.municipality) match = card;
+            });
+            if (!match) return;
+            var mine = match.cloneNode(true);
+            var title = mine.querySelector("h3");
+            var label = document.createElement("div");
+            label.className = "muni-label";
+            label.textContent = title.textContent;
+            title.textContent = "Your Municipal DRRMO";
+            mine.removeAttribute("data-municipality");
+            mine.insertBefore(label, mine.querySelector(".hotline-list"));
+            var note = document.createElement("p");
+            note.style.opacity = ".8";
+            note.textContent = "Contact your MDRRMO for local evacuation orders.";
+            mine.appendChild(note);
+            document.getElementById("national-grid").appendChild(mine);
+            match.remove();
+        })();
+    </script>
+</body>
+</html>
